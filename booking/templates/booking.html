@@ -1,0 +1,97 @@
+<title>Online Booking</title>
+{% extends 'layout.html' %}
+{% load static %}
+{% block body %}
+
+
+<style>
+    form {
+        max-width: 500px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+
+
+{% if user.is_authenticated %}
+<h1 style="margin-top: 90px; font-size: 50px;" class="text-center text-black p-3 ">Online Booking</h1>
+
+<div class="shadow p-4 mb-5 bg-body bg-body rounded text-black  m-5 ">
+    <form method="post" action="{% url 'booking' %}" class="me-2 ms-2" required>
+        {% csrf_token %}
+
+        <!--input service-->
+        <div>
+            <h3 class="">Select Service:</h3>
+            <select class="form-select fs-3" name="service">
+                <option value="Medical Checkup">Medical Checkup </option>
+                <option value="Doctor Appointment">Doctor Appointment</option>
+                <option value="Nursing care">Nursing care</option>
+                <option value="Gyn Care">Gyn Care</option>
+                <option value="Sleep Center ">Sleep Center </option>
+            </select>
+        </div>
+        <br>
+{% comment %} chNGES {% endcomment %}
+        <div class="mt-3" id="doctor-select" style="display: none; margin-bottom: 40px;">
+            <h3 class="">Select Doctor:</h3>
+            <select class="form-select fs-3" name="doctor">
+                <option value="Cardiologist">Cardiologist</option>
+                <option value="Psychiatrist">Psychiatrist</option>
+                <option value="Neurologist">Neurologist</option>
+            </select>
+        </div>
+
+
+            <!--input day-->
+            <div class="mt-3">
+                <h3 class="">Select Day:</h3>
+                <select class="form-select fs-3" name="day">
+                    {% for validateWeekday in validateWeekdays %}
+                    <option value="{{validateWeekday}}">{{validateWeekday}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <br/>
+            <button type="submit" class="btn btn-primary text-white">Continue</button>
+        </div>
+    </form>
+</div>
+<br/><br/><br/>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $("select[name='service']").change(function() {
+            if ($(this).val() === "Doctor Appointment") {
+                $("#doctor-select").show();
+            } else {
+                $("#doctor-select").hide();
+            }
+        });
+    
+        // Initialize the visibility based on the initial value of the service dropdown
+        if ($("select[name='service']").val() === "Doctor Appointment") {
+            $("#doctor-select").show();
+        }
+    });
+    </script>
+    
+    
+
+{% else %}
+
+<div style="margin-top: 150px;" class="shadow p-4 mb-5 bg-body bg-body rounded text-black  m-5 ">
+    <h1 style="font-size: 80px;" class=" p-2 me-3">You Are Not Signed in!</h1>
+    <a style="margin-left: 10px; margin-bottom: 100px; font-size:20px;" href="{% url 'register' %}" class="btn btn-primary shadow text-center">Sign in</a>
+</div>
+
+{% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,220 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{% block title %}{% endblock title %}</title>
+	
+    <!-- css -->
+    <link type="text/css" href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" >
+    <link type="text/css" href="{% static 'font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="{% static 'plugins/cubeportfolio/css/cubeportfolio.min.css' %}">
+	<link type="text/css" href="{% static 'css/nivo-lightbox.css' %}" rel="stylesheet" />
+	<link type="text/css" href="{% static 'css/nivo-lightbox-theme/default/default.css' %}" rel="stylesheet"/>
+	<link type="text/css" href="{% static 'css/owl.carousel.css' %}" rel="stylesheet" media="screen" />
+    <link type="text/css" href="{% static 'css/owl.theme.css' %}" rel="stylesheet" media="screen"/>
+	<link type="text/css" href="{% static 'css/animate.css' %}" rel="stylesheet" />
+    <link type="text/css" href="{% static 'css/style.css' %}" rel="stylesheet">
+    <style type="text/css">
+        .dropdown:hover>.dropdown-menu {
+            display: block;
+        }
+
+    </style>
+
+	<!-- boxed bg -->
+	<link type="text/css" id="bodybg" href="{% static 'bodybg/bg1.css' %}" rel="stylesheet"  />
+	<!-- template skin -->
+	<link type="text/css" id="t-colors" href="{% static 'color/default.css' %}" rel="stylesheet" >
+
+    {% block other_css %}{% endblock other_css %}
+
+</head>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-custom">
+
+<div id="wrapper">
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+		
+        <div class="container navigation">
+		
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="{% url 'index' %}">
+					<h1><b>Synopsia</b></h1>
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+			  <ul class="nav navbar-nav">
+				<li class="active"><a href="/">Home</a></li>
+        
+				<li><a href="/medicines/">MedStore</a></li>
+				<li><a href="{% url 'booking' %}">Online Booking</li>
+                    {% if user.is_authenticated %}
+                    <li style="margin-top:-30px"><a href="{% url 'staffPanel' %}">History</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                          User
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="padding: 10px;">
+                          <a class="dropdown-item" href="{% url 'userPanel' %}">User Panel</a><br>
+                          <a class="dropdown-item" href="{% url 'logout' %}">Sign Out</a>
+                        </div>
+                    </li>
+                    {% else %}
+                    <li style="margin-top:-30px"><a href="{% url 'register' %}">Sign in/Sign Up</a></li>
+                    {% endif %}
+
+
+				{% comment %} <li><a href="/medicines">Medstoer</a></li> {% endcomment %}
+				{% comment %} {% else %} {% endcomment %}
+				{% comment %} <li><a href="/login_user">Login</a></li> {% endcomment %}
+				{% comment %} <li><a href="/sign-up">Sign-Up</a></li> {% endcomment %}
+				
+			  </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+        
+
+        <!--Messages Start-->
+        {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success  alert-dismissible fade show text-center " role="alert">
+                <h3 class="display-3">{{ message }}</h3>
+                <button type="button" class="btn-close fs-1 position-absolute top-50 start-0 translate-middle-y" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+        {% endif %}
+        <!--Messages End-->
+
+
+
+    {% block body %}
+    {% endblock %}
+    <footer>
+	
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-6 col-md-4">
+					<div class="wow fadeInDown" data-wow-delay="0.1s">
+					<div class="widget">
+						<h5>About Synopsia</h5>
+						<p>
+						It is a multi-purpose website with Prediction app which predict disease based on symptoms given by user and also predict the drugs related to it.
+						</p>
+					</div>
+					</div>
+					<div class="wow fadeInDown" data-wow-delay="0.1s">
+				
+					</div>
+				</div>
+				<div class="col-sm-6 col-md-4">
+					<div class="wow fadeInDown" data-wow-delay="0.1s">
+					<div class="widget">
+						
+						<ul>
+							<li>
+								<span class="fa-stack fa-lg">
+									<i class="fa fa-circle fa-stack-2x"></i>
+									<i class="fa fa-calendar-o fa-stack-1x fa-inverse"></i>
+								</span><a href="/booking"> Book an Appointment?</a>
+							</li>
+							<li>
+								<span class="fa-stack fa-lg">
+									<i class="fa fa-circle fa-stack-2x"></i>
+									<i class="fa fa-phone fa-stack-1x fa-inverse"></i>
+								</span> +91 0888 904 711
+							</li>
+							<li>
+								<span class="fa-stack fa-lg">
+									<i class="fa fa-circle fa-stack-2x"></i>
+									<i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
+								</span> hello@synopsia.com
+							</li>
+
+						</ul>
+					</div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-md-4">
+					<div class="wow fadeInDown" data-wow-delay="0.1s">
+					<div class="widget">
+						<h5>Our location</h5>
+						<p>SAKEC, Chembur, Mumbai - 400088</p>		
+						
+					</div>
+					</div>
+					<div class="wow fadeInDown" data-wow-delay="0.1s">
+					<div class="widget">
+						<h5>Follow us</h5>
+						<ul class="company-social">
+								<li class="social-facebook"><a href="#"><i class="fa fa-facebook"></i></a></li>
+								<li class="social-twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>
+								<li class="social-vimeo"><a href="#"><i class="fa fa-linkedin"></i></a></li>
+						</ul>
+					</div>
+					</div>
+				</div>
+			</div>	
+		</div>
+		<div class="sub-footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-6 col-md-6 col-lg-6">
+					<div class="wow fadeInLeft" data-wow-delay="0.1s">
+					<div class="text-left">
+					<p>&copy;Copyright 2023 - Synopsia. All rights reserved.</p>
+					</div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-md-6 col-lg-6">
+					<div class="wow fadeInRight" data-wow-delay="0.1s">
+					<div class="text-right">
+
+					</div>
+                    <!-- 
+                        All links in the footer should remain intact. 
+                        Licenseing information is available at: http://bootstraptaste.com/license/
+                        You can buy this theme without footer links online at: http://bootstraptaste.com/buy/?theme=Medicio
+                    -->
+					</div>
+				</div>
+			</div>	
+		</div>
+		</div>
+	</footer>
+    <a href="#" class="scrollup"><i class="fa fa-angle-up active"></i></a>
+
+	<!-- Core JavaScript Files -->
+    <script src="{% static 'js/jquery.min.js' %}"></script>	 
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.easing.min.js' %}"></script>
+	<script src="{% static 'js/wow.min.js' %}"></script>
+	<script src="{% static 'js/jquery.scrollTo.js' %}"></script>
+	<script src="{% static 'js/jquery.appear.js' %}"></script>
+	<script src="{% static 'js/stellar.js' %}"></script>
+	<script src="{% static 'plugins/cubeportfolio/js/jquery.cubeportfolio.min.js' %}"></script>
+	<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+	<script src="{% static 'js/nivo-lightbox.min.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
+    <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+    <df-messenger
+    intent="WELCOME"
+    chat-title="Synopsia-Chatbot"
+    agent-id="6bbc25a2-c2a4-4a10-b3ca-4fa898ee7f2c"
+    language-code="en"
+    ></df-messenger>
+    {% block other_js %}{% endblock other_js %}
+  </body>
+</html>

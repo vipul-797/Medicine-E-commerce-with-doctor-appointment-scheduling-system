@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% load static %}
+
+	{% block title %}Disease Prediction{% endblock %}
+    {% block other_css %}
+    <style type="text/css">
+    
+    .checkbox-container {
+			display: block;
+			flex-direction: row;
+			align-items: left;
+			justify-content: space-between;
+			width: 500px;
+			margin: 0 auto;
+		}
+
+    .checkbox-container label {
+        flex: 1;
+        margin-right: 10px;
+    }
+
+
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        padding: 20px;
+    }
+
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+
+    form {
+        max-width: 500px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+        display: block;
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    select,
+    textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        font-size: 16px;
+        color: #333;
+        box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+        background-color: #333;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #666;
+    }
+
+        input[type="checkbox"] {
+			display: inline-block;
+			width: 20px;
+			height: 20px;
+			margin-right: 10px;
+			vertical-align: middle;
+			cursor: pointer;
+			background-color: #fff;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			appearance: none;
+		}
+
+		input[type="checkbox"]:checked {
+			background-color: #4CAF50;
+			border-color: #4CAF50;
+		}
+
+		input[type="checkbox"]:focus {
+			outline: none;
+			box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+		}
+    </style>
+    {% endblock other_css %}
+ 
+
+    {% block other_body %}
+    {% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+    {% endif %}
+	<h1 style="margin-top: 90px;">Disease Prediction</h1>
+    {% if messages %}
+    {% for message in messages %}
+        <h3 class="alert alert-{{ message.tags }} text-center">{{ message }}</h3>
+    {% endfor %}
+    {% endif %}
+
+	<form action="{% url 'disease_pred' %}" method="post">
+        {% csrf_token %}
+
+		<label for="name">Name</label>
+		<input type="text" id="name" name="name" placeholder="Enter your name">
+
+		<label for="age">Age</label>
+		<input type="text" id="age" name="age" placeholder="Enter your Age">
+
+        <label>Select the symptoms</label>
+        <div class="checkbox-container">
+            {% for s in symp %}
+			<label>
+				<input type="checkbox" name="symp" value={{s}}>
+				{{s}}
+			</label>
+            {% endfor %}
+		</div>
+        <br>
+
+		<input type="submit" value="Submit">
+
+	</form>
+    <br><br>
+
+    {% endblock other_body%}
+
+    {% block other_js %}
+    {% endblock other_js%}

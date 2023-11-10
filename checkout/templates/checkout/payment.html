@@ -1,0 +1,13 @@
+{% extends 'base_bootstrap.html' %}
+{%load crispy_forms_tags %}
+{%load static %}
+{%block content%}
+<div class="container mt-5 text-center">
+<h2>Pay with Stripe</h2>
+  <button id="submitBtn">Pay with Stripe</button>
+</div>
+{%endblock%}
+{%block js%}
+<script src="https://js.stripe.com/v3/"></script>
+<script src="{%static 'stripe_test.js' %}"></script>
+{%endblock%}

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Add your head content here -->
+    <title>{{ doctor.name }} - Doctor Details</title>
+</head>
+
+<body>
+    <h1>{{ doctor.name }}</h1>
+    <img src="{{ doctor.image.url }}" alt="{{ doctor.name }}" width="100%">
+    <p>Specialization: {{ doctor.specialization }}</p>
+    <p>Qualification: {{ doctor.qualification }}</p>
+    <!-- Add more details as needed -->
+    <a href="{% url 'medical_appointment:doctor_list' %}">Back to Doctor List</a>
+</body>
+
+</html>

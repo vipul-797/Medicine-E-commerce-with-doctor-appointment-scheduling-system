@@ -1,0 +1,90 @@
+{% extends 'base_bootstrap.html' %}
+{% load crispy_forms_filters %}
+
+{% load crispy_forms_tags %}
+
+{% block head %}
+<title>Login|MedStore</title>
+<meta name="description" content="Login to a sample site to view additional features of this project site">
+<style>
+    body{
+        background: #292727;
+    }
+    .form-c{
+        position: absolute;
+        left: 25vw;
+        right: 25vw;
+        top: 15vh;
+        background: #1d1c1c;
+        padding: 50px 100px;
+        box-shadow: 2px 2px 5px 10px #000;
+        color: #fff !important;
+    }
+    input{
+        background: transparent !important;
+        border: solid 2px #4040c7 !important;
+        border-radius: 25px !important;
+        color: #e8dfdf !important;
+    }
+    .btn{
+        position: absolute;
+        border: 2px solid green;
+        padding: 5px 15px;
+        border-radius: 25px;
+    }
+    input:focus{
+        box-shadow: inset 1px 1px 2px 1px #f00 !important;
+    }
+    button.btn:hover{
+        background: #2ebd2e !important;
+        border-color: #1d1c1c;
+        transition: 1s;
+        color: #f1f1f1 !important;
+    }
+    @media only screen and (max-width: 980px){
+        .form-c{
+            left: 15%;
+            right: 15%;
+            top: 20vh;
+            padding-left: 40px;
+            padding-right: 40px;
+        }
+    }
+    @media screen and (max-width: 480px){
+        .form-c{
+            left: 5%;
+            right: 5%;
+            top: 25vh;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="form-c">
+    <h1 style="text-align: center; margin-bottom: 20px; border-bottom: 2px double #f00; opacity: .8; text-shadow: 1px 1px 5px #f4f6ff"> Login </h1>
+    <form method="post" autocomplete="off">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button class="btn btn-pre" type="submit" style="color: #fff;">Login</button>
+    </form>
+    </div>
+<div id="ref" class="alert" style="color: #fff; position: relative; text-align: center; display: block; clear: both; width: 100%">New here? <a href="{% url 'account_signup' %}">Signup</a> </div>
+{% endblock %}
+
+{% block js %}
+<script>
+    const labels = document.getElementsByTagName("label")
+    for(let i=0; i<2; i++){
+        labels[i].style.display = "none";
+    }
+    for(let pass of document.querySelectorAll("input[type=password]")){
+        pass.setAttribute("autocomplete", "off");
+    }
+    if( location.pathname === "/login/" ){
+        document.getElementById("log").remove();
+    }
+</script>
+{% endblock %}

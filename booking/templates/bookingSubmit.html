@@ -1,0 +1,51 @@
+<title>Online Booking</title>
+{% extends 'layout.html' %}
+{% load static %}
+{% block body %}
+
+<style>
+    form {
+        max-width: 500px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+
+
+{% if user.is_authenticated %}
+<h1 style="margin-top: 90px; font-size: 50px;" class="text-center text-black p-3 ">Online Booking</h1>
+
+<div class="shadow p-4 mb-5 bg-body bg-body rounded text-black text-center m-5">
+    <form method="post" action="{% url 'bookingSubmit' %}" class="me-2 ms-2" required>
+        {% csrf_token %}
+        
+        <!--input time-->
+        <h3 class="text-center fPersian mt-4">Time:</h3>
+        <div>
+            <select class="form-select fs-3 text-center" name="time">
+                {% for time in times %}
+                <option value="{{time}}">{{time}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <br/>
+        <button type="submit" class="btn btn-primary text-white mt-3 fPersian">Submit</button>
+
+    </form>
+</div>
+<br/><br/>
+{% else %}
+
+<div class="shadow p-4 mb-5 bg-body bg-body rounded text-black  m-5">
+    <h1 class="p-2  me-3">First Sign in!</h1>
+    <a href="{% url 'login_user' %}" class="btn btn-primary text-white">Sign in</a>
+</div>
+
+{% endif %}
+
+
+{% endblock %}
